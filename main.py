@@ -1,6 +1,3 @@
-
-## main.py
-```python
 """
 HW02 — Metro Train Cleanup (Linked List Filter)
 
@@ -22,7 +19,8 @@ class Node:
         # Example:
         # self.value = value
         # self.next = next
-        pass
+        self.value = value
+        self.next = next
 
 
 def remove_cars(head, target):
@@ -42,7 +40,30 @@ def remove_cars(head, target):
     # 6. Implement pointer updates in Python.
     # 7. Debug with small hand-drawn lists.
     # 8. Confirm one full pass only (O(N)), and constant extra space.
-    raise NotImplementedError("Implement remove_cars and Node in main.py")
+    
+    # Remove all matching nodes from the head
+    while head is not None and head.value == target:
+        head = head.next
+    
+    # If all nodes were removed, return None
+    if head is None:
+        return None
+    
+    # Process the rest of the list with prev and current pointers
+    prev = head
+    current = head.next
+    
+    while current is not None:
+        if current.value == target:
+            # Skip this node by updating the pointer
+            prev.next = current.next
+            current = current.next
+        else:
+            # Move both pointers forward
+            prev = current
+            current = current.next
+    
+    return head
 
 
 if __name__ == "__main__":
